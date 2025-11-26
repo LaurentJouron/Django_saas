@@ -9,7 +9,7 @@ from django.db.models import Count, Q
 from apps.visits.models import PageVisit
 
 
-class HomePageView(View):
+class HomeView(View):
     """
     Home page view with visit tracking and analytics.
 

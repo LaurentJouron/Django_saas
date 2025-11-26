@@ -2,11 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Laurent Jouron">
+
+    {% block seo_meta %}
+    <meta name="description" content="{% block meta_description %}{% endblock meta_description %}">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <meta name="robots" content="{% block meta_robots %}index, follow{% endblock meta_robots %}">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{% block og_title %}{% endblock og_title %}">
+    <meta property="og:description" content="{% block og_description %}{% endblock og_description %}">
+    <meta property="og:image" content="{{ SITE_URL }}{% block og_image %}{% endblock og_image %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}{% endblock twitter_title %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{% endblock twitter_description %}">
+    <meta name="twitter:image" content="{{ SITE_URL }}{% block twitter_image %}{% endblock twitter_image %}">
+
+    <!-- Balise Keywords (optionnelle) -->
+    <meta name="keywords" content="{% block meta_keywords %}{% endblock meta_keywords %}">
+    {% endblock seo_meta %}
+
     <title>{% block head_title %}{% endblock head_title %}</title>
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+    {% block content %}{% endblock content %}
 </body>
 </html>

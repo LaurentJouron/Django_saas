@@ -5,6 +5,13 @@ name = "pypi"
 
 [packages]
 django = "*"
+django-environ = "*"
+django-browser-reload = "*"
+django-debug-toolbar = "*"
+django-cleanup = "*"
+django-extensions = "*"
+django-admin-honeypot-updated-2021 = "*"
+django-redis = "*"
 
 [dev-packages]
 

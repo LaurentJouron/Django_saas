@@ -3,7 +3,9 @@
 {% block head_title %}{{ page_title }} - {{ bloc.super }}{% endblock head_title %}
 
 {% block content %}
-<h1>{{ page_title }}</h1>
+
+<h1 class="text-lg font-medium">{{ page_title }}</h1>
+
 {% include "snippets/welcome-user-message.html" %}
 
 <p>{{ page_visit_count }} page visits recorded.</p>

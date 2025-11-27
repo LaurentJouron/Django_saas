@@ -167,11 +167,19 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
+# Source folder for your static files during development
+STATIC_DIR = BASE_DIR / "static"
+
+# Subfolder for vendors (Bootstrap, jQuery, etc.)
+STATICFILES_VENDORS_DIR = STATIC_DIR / "vendors"
+
+# Django will look for the static files in these folders
+# https://docs.djangoproject.com/en/dev/ref/settings/#staticfiles-dirs
+STATICFILES_DIRS = [STATIC_DIR]
+
+# Output folder for 'python manage.py collection'
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# https://docs.djangoproject.com/en/dev/ref/settings/#staticfiles-dirs
-STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # ==========================
 # Media Files

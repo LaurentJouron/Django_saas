@@ -24,13 +24,31 @@
     <meta name="twitter:description" content="{% block twitter_description %}{% endblock twitter_description %}">
     <meta name="twitter:image" content="{{ SITE_URL }}{% block twitter_image %}{% endblock twitter_image %}">
 
-    <!-- Balise Keywords (optionnelle) -->
+    <!-- Balise Keywords -->
     <meta name="keywords" content="{% block meta_keywords %}{% endblock meta_keywords %}">
+
+    <!-- CDN -->
+    {% include "base/css.html" %}
+
     {% endblock seo_meta %}
 
     <title>{% block head_title %}{% endblock head_title %}</title>
+
 </head>
 <body>
-    {% block content %}{% endblock content %}
+    <!-- Navbar -->
+    {% include "nav/navbar.html" %}
+    <!-- End Navbar -->
+
+    <!-- Content -->
+    <div class="pt-16">
+        {% block content %}{% endblock content %}
+    </div>
+    <!-- End Content -->
+
+    <!-- CDN -->
+    {% include "base/js.html" %}
+    <!-- End CDN -->
+
 </body>
 </html>

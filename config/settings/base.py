@@ -35,6 +35,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "apps.visits.apps.VisitsConfig",
+    "apps.commando.apps.CommandoConfig",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -49,6 +50,7 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -169,9 +171,10 @@ STATIC_URL = "/static/"
 
 # Source folder for your static files during development
 STATIC_DIR = BASE_DIR / "static"
+STATIC_DIR.mkdir(parents=True, exist_ok=True)
 
 # Subfolder for vendors (Bootstrap, jQuery, etc.)
-STATICFILES_VENDORS_DIR = STATIC_DIR / "vendors"
+STATICFILES_VENDOR_DIR = STATIC_DIR / "vendors"
 
 # Django will look for the static files in these folders
 # https://docs.djangoproject.com/en/dev/ref/settings/#staticfiles-dirs
@@ -180,6 +183,13 @@ STATICFILES_DIRS = [STATIC_DIR]
 # Output folder for 'python manage.py collection'
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT.mkdir(parents=True, exist_ok=True)
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # ==========================
 # Media Files

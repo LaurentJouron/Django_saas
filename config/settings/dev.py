@@ -71,13 +71,6 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 # ==========================
-# Static Files
-# ==========================
-
-# Extend staticfiles directories for development
-STATICFILES_DIRS += [FRONTEND_DIR / "public"]
-
-# ==========================
 # Logging Configuration
 # ==========================
 

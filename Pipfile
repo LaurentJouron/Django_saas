@@ -12,6 +12,8 @@ django-cleanup = "*"
 django-extensions = "*"
 django-admin-honeypot-updated-2021 = "*"
 django-redis = "*"
+psycopg2-binary = "*"
+dj-database-url = "*"
 
 [dev-packages]
 

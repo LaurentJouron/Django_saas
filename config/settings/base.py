@@ -90,19 +90,17 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # ==========================
-# Database Configuration
+# Database Configuration (SOLIDE)
 # ==========================
-# https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
+# Utilise DJANGO_DATABASE_URL si elle existe (production)
+# ou SQLite par défaut (si non écrasé par dev.py)
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": env.db_url(
+        "DJANGO_DATABASE_URL",
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+    )
 }
-
-# https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # ==========================
 # Cache Configuration
@@ -110,10 +108,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/dev/ref/settings/#caches
 
 CACHES = {
-    "default": env.cache(
-        "DJANGO_CACHE_URL", default="locmem://unique-snowflake"
-    )
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+    }
 }
+
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # ==========================
 # Password Validation

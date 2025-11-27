@@ -1,6 +1,7 @@
 from .base import *  # noqa: F403
 from .base import env
 from .base import FRONTEND_DIR
+import dj_database_url
 
 # ==========================
 # Core Settings
@@ -20,19 +21,19 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[".railway.app"])
 # ==========================
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {"default": env.db("DJANGO_DATABASE_URL")}
-
-# https://docs.djangoproject.com/en/dev/ref/settings/#conn-max-age
-DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)
-
-# https://docs.djangoproject.com/en/dev/ref/settings/#conn-health-checks
-DATABASES["default"]["CONN_HEALTH_CHECKS"] = True
+DATABASES = {
+    "default": dj_database_url.config(
+        default=env("DJANGO_DATABASE_URL"),
+        conn_max_age=env.int("CONN_MAX_AGE", default=600),
+        conn_health_checks=True,
+    )
+}
 
 # ==========================
 # Cache Configuration
 # ==========================
 
-# Use Redis for production caching
+# Utilise Redis pour le caching en production
 CACHES = {
     "default": env.cache(
         "DJANGO_CACHE_URL", default="redis://127.0.0.1:6379/1"

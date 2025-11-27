@@ -15,7 +15,7 @@ DEBUG = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
-    default="django-insecure-dev-key-change-this-in-production",
+    default="django-insecure-dev-key-change-this-in-DEVELOPMENT",
 )
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts

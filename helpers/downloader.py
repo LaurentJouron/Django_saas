@@ -1,4 +1,5 @@
 import requests
+
 from pathlib import Path
 
 
@@ -37,13 +38,13 @@ def download_to_local(
         out_path.parent.mkdir(parents=True, exist_ok=True)
 
     try:
-        response = requests.get(url, timeout=timeout, stream=True)
+        response = requests.get(url=url, timeout=timeout, stream=True)
         response.raise_for_status()
 
         # Write file in chunks to handle large files efficiently
         with out_path.open("wb") as f:
             for chunk in response.iter_content(chunk_size=chunk_size):
-                f.write(chunk)
+                f.write(buffer=chunk)
 
         return True
     except requests.RequestException as e:

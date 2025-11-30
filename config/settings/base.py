@@ -1,5 +1,4 @@
 from pathlib import Path
-
 from config import BASE_DIR
 from config import env
 
@@ -13,6 +12,60 @@ FRONTEND_DIR = BASE_DIR / "frontend"
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = env.bool("DJANGO_DEBUG", False)
+
+# ==========================
+# Email Configuration
+# ==========================
+# Backend de messagerie
+EMAIL_BACKEND = env(
+    "EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend"
+)
+
+# Configuration SMTP
+EMAIL_HOST = env("EMAIL_HOST", default="smtp.gmail.com")
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
+EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=False)
+
+# Identifiants
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+
+# Timeout (en secondes)
+EMAIL_TIMEOUT = env.int("EMAIL_TIMEOUT", default=30)
+
+# Configuration de l'expéditeur par défaut
+DEFAULT_FROM_EMAIL = env(
+    "DEFAULT_FROM_EMAIL", default=EMAIL_HOST_USER or "noreply@django_saas.com"
+)
+SERVER_EMAIL = env(
+    "SERVER_EMAIL", default=EMAIL_HOST_USER or "server@django_saas.com"
+)
+
+# Administrateurs (pour les emails d'erreur Django)
+ADMINS = [
+    (
+        env("ADMIN_USER_NAME", default="Laurent"),
+        env("ADMIN_USER_EMAIL", default="laurentjouron@gmail.com"),
+    ),
+]
+MANAGERS = ADMINS
+
+# Configuration de validation (optionnel mais recommandé)
+if EMAIL_USE_TLS and EMAIL_USE_SSL:
+    raise ValueError(
+        "EMAIL_USE_TLS et EMAIL_USE_SSL ne peuvent pas être activés simultanément"
+    )
+
+if EMAIL_USE_TLS and EMAIL_PORT not in [587, 25]:
+    import warnings
+
+    warnings.warn(f"Port {EMAIL_PORT} inhabituel pour TLS (recommandé: 587)")
+
+if EMAIL_USE_SSL and EMAIL_PORT != 465:
+    import warnings
+
+    warnings.warn(f"Port {EMAIL_PORT} inhabituel pour SSL (recommandé: 465)")
 
 # ==========================
 # Application Definition
@@ -57,6 +110,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "apps.visits.middleware.VisitMiddleware",
 ]
 
 # ==========================

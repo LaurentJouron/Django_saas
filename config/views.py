@@ -21,7 +21,7 @@ class HomeView(BaseVisitView, View):
     """
 
     template_name = "home/home.html"
-    page_title = "Home Page"
+    page_title = "Home"
     cache_timeout = 300  # 5 minutes cache
 
     @method_decorator(csrf_protect)

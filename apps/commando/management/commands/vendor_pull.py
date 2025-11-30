@@ -1,8 +1,7 @@
 """Django management command to download vendor static files."""
 
-from typing import Any
 from pathlib import Path
-
+from typing import Any
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 

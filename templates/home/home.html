@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block head_title %}{{ page_title }} - {{ bloc.super }}{% endblock head_title %}
+{% block head_title %}{{ page_title }}{% endblock head_title %}
 
 {% block content %}
 
@@ -10,7 +10,6 @@
 
 <p>{{ page_visit_count }} page visits recorded.</p>
 <p>{{ page_visit_percentage }}% of total page visits.</p>
-
 <p>{{ total_visit_count }} total page visits recorded.</p>
 
 {% endblock %}
